@@ -1,4 +1,6 @@
+@use '@angular/material' as mat;
 
+$my-palette: mat.$indigo-palette;
 
 .search-container {
     width: 100vw;
