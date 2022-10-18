@@ -1,0 +1,12 @@
+.book-container {
+    width: 40vw;
+    height: 90vh;
+    margin: 0 10px;
+    overflow: scroll;
+    -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
+
+.book-container::-webkit-scrollbar {
+    display: none;
+  }

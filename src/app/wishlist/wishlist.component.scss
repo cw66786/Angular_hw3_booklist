@@ -1,0 +1,12 @@
+.wish-container {
+    width: 40vw;
+    height: 90vh;
+    margin: 0 10px;
+    overflow: scroll;
+    -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
+
+.wish-container::-webkit-scrollbar {
+    display: none;
+  }
