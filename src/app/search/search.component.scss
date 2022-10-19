@@ -6,12 +6,17 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    
+    flex-wrap: wrap;
 }
 
 label {
     margin: 0px 20px;
     font-weight: bold;
     letter-spacing: 1px;
+    font-size: 1.1rem;
 }
 
+input {
+    width: 250px;
+    height: 1.25rem;
+}

@@ -20,4 +20,9 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: mat.get-color-from-palette($accent,A100);
   color: mat.get-color-from-palette($primary);
+
+}
+
+mat-icon {
+  color: mat.get-color-from-palette($warn);
 }

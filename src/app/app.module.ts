@@ -12,6 +12,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { BooklistComponent } from './booklist/booklist.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { SearchComponent } from './search/search.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { SearchComponent } from './search/search.component';
     MatToolbarModule,
     MatButtonModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule
     
   ],
   providers: [],
