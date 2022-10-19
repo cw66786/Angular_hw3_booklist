@@ -1,19 +1,23 @@
 .wish-container {
- 
-    width: 40vw;
-    height: 90vh;
-    margin: 0 10px;
-    overflow: scroll;
-    -ms-overflow-style: none;  
-  scrollbar-width: none;  
+  width: 40vw;
+  height: 90vh;
+  margin: 0 10px;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .wish-container::-webkit-scrollbar {
-    display: none;
-  }
+  display: none;
+}
 
-  mat-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+mat-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+mat-icon{
+  cursor: pointer;
+}

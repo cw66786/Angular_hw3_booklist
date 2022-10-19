@@ -1,8 +1,8 @@
 <div class="wish-container">
-  <mat-card>
+  <mat-card *ngFor="let title of wishList" >
     
-    <mat-card-title>Simple card</mat-card-title>
-    <mat-icon >delete</mat-icon>
+    <mat-card-title>{{title}}</mat-card-title>
+    <mat-icon (click)="removeWish(title)">delete</mat-icon>
    
   </mat-card>
 </div>

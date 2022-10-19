@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BooksService } from '../books.service';
 
 
 
@@ -8,11 +9,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./booklist.component.scss']
 })
 export class BooklistComponent implements OnInit {
- bookList: any[] = [];
-  constructor() { }
+ inputData: any = [];
+  constructor(private bookService: BooksService) { }
 
   ngOnInit(): void {
-   
+   this.bookService.booklist$.subscribe((books: any)=> {
+    this.inputData = books;
+   })
+  }
+
+  sendToWishList(bookname: string){
+    this.bookService.addWishList(bookname);
   }
 
 }

@@ -1,6 +1,7 @@
-<app-navbar></app-navbar>
+<app-navbar (clicked)="changeDisplay($event)"></app-navbar>
 <app-search></app-search>
 <div class="list-container">
-  <app-booklist></app-booklist>
-  <app-wishlist></app-wishlist>
+  <app-booklist *ngIf="showBookList === true"></app-booklist>
+  <app-wishlist></app-wishlist> 
+  
 </div>

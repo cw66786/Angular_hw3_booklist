@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { filter } from 'rxjs/operators';
+import { BooksService } from '../books.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -6,10 +8,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./wishlist.component.scss']
 })
 export class WishlistComponent implements OnInit {
+  wishList: string[]= [];
 
-  constructor() { }
+  constructor(private booksService: BooksService) { }
 
   ngOnInit(): void {
+    this.booksService.wishes$.subscribe(data =>{
+      this.wishList = data;
+    })
+
+    
+
+   
   }
 
+ removeWish(title: string){
+  this.booksService.deleteWish(title);
+ }
+
 }
+
+

@@ -1,14 +1,14 @@
 <div class="book-container">
-<mat-card >
+<mat-card *ngFor="let book of inputData" >
   <mat-card-title-group>
-    <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Small</mat-card-subtitle>
-      <mat-card-subtitle>Small</mat-card-subtitle>
+    <img mat-card-sm-image src="{{book.pic}}" >
+      <mat-card-title>{{book.bookname}}</mat-card-title>
+      <mat-card-subtitle>{{book.publisher}}</mat-card-subtitle>
+      <mat-card-subtitle>{{book.date}}</mat-card-subtitle>
     </mat-card-title-group>
     <mat-card-content>
-      l;kjdf;alskjdf;laksdjf;laksjdf;lkajsd;
+      {{book.description}}
     </mat-card-content>
-    <button mat-button color="primary">Add To Wishlist</button>
+    <button mat-button color="primary" (click)="sendToWishList(book.bookname)">Add To Wishlist</button>
   </mat-card>
 </div>

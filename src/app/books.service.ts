@@ -10,15 +10,17 @@ import { Book, Root } from './fullData.interface';
 export class BooksService {
   private readonly baseUrl = 'https://www.googleapis.com/books/v1/volumes?q=';
 
-  private Books = [];
-  private BooksBehave$ = new BehaviorSubject<any[]>(this.Books);
-  booklist$ = this.BooksBehave$.asObservable();
+  private books = [];
+  private booksBehave$ = new BehaviorSubject<any[]>(this.books);
+  booklist$ = this.booksBehave$.asObservable();
 
-  // private wishList = [];
-  // private wishBehave$ = new BehaviorSubject<any[]>(this.Books);
-  // wishes$ = this.BooksBehave$.asObservable();
+  private wishList: string[] = [];
+  private wishBehave$ = new BehaviorSubject<any[]>(this.wishList);
+  wishes$ = this.wishBehave$.asObservable();
 
   constructor(private  http: HttpClient) {}
+
+  
 
     getBookList(bookName: String){
       return this.http.get<Root>(this.baseUrl + bookName).pipe(
@@ -27,16 +29,23 @@ export class BooksService {
         }),
             map(({items}: Root): any =>{
           if(items && items.length){
-            return items.map(({volumeInfo}: Book)=>{
+            
+
+          
+            return items.map(({volumeInfo, searchInfo})=>{
               const book: any = {
                 bookname:  volumeInfo.title ,
                 publisher: volumeInfo.publisher,
                 pubDate: volumeInfo.publishedDate,
-                description: volumeInfo.description,
+                description: searchInfo !== undefined? searchInfo.textSnippet: "Description Unavailable",
+                
               };
 
+             
+                 
+
               if(volumeInfo.imageLinks){
-                book.pic = volumeInfo.imageLinks.smallThumbnail;
+                book.pic = volumeInfo.imageLinks.smallThumbnail || '';
               };
               return book;
               
@@ -45,8 +54,8 @@ export class BooksService {
           
         }),
         tap((books: any)=>{
-          this.Books = books;
-          this.BooksBehave$.next(this.Books);
+          this.books = books;
+          this.booksBehave$.next(this.books);
         })
         
       )
@@ -55,7 +64,19 @@ export class BooksService {
    
      }
 
-   
+   addWishList(title: string){
+      this.wishList.push(title);
+      this.wishBehave$.next(this.wishList);
+      
+   }
+
+   deleteWish(title: string){
+    this.wishList = this.wishList.filter((el) =>{
+      return el !== title;
+    });
+    this.wishBehave$.next(this.wishList);
+   }
+
 }
 
  
