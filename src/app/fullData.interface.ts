@@ -1,10 +1,11 @@
 export interface Root {
     kind: string
     totalItems: number
-    items: Item[]
+    items: Book[]
   }
   
-  export interface Item {
+  export interface Book {
+    imageLinks: any
     kind: string
     id: string
     etag: string

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject , Observable} from 'rxjs';
 import { filter,map,tap } from 'rxjs/operators';
-import { Root } from './fullData.interface';
+import { Book, Root } from './fullData.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,48 +10,56 @@ import { Root } from './fullData.interface';
 export class BooksService {
   private readonly baseUrl = 'https://www.googleapis.com/books/v1/volumes?q=';
 
-  // private Books = [];
-  // private BooksBehave$ = new BehaviorSubject<any[]>(this.Books);
-  // booklist$ = this.BooksBehave$.asObservable();
+  private Books = [];
+  private BooksBehave$ = new BehaviorSubject<any[]>(this.Books);
+  booklist$ = this.BooksBehave$.asObservable();
 
   // private wishList = [];
   // private wishBehave$ = new BehaviorSubject<any[]>(this.Books);
   // wishes$ = this.BooksBehave$.asObservable();
 
-  constructor(private readonly http: HttpClient) {
+  constructor(private  http: HttpClient) {}
 
-    getBookList(bookname: string): Observable<Root.items[]>{
-      return this.http.get<Root.items[]>(this.baseUrl+bookname);
-   
-    //     map(({items}): any =>{
-    //       if(items && items.length){
-    //         return items.map((volumeInfo )=>{
-    //           const book: any {
-    //             bookname: volumeInfo.title,
-    //             publisher: volumeInfo.publisher,
-    //             pubDate: volumeInfo.publishedDate,
-    //             description: volumeInfo.description
-    //           };
+    getBookList(bookName: String){
+      return this.http.get<Root>(this.baseUrl + bookName).pipe(
+        filter((res: Root)=>{
+          return res.totalItems !== 0;
+        }),
+            map(({items}: Root): any =>{
+          if(items && items.length){
+            return items.map(({volumeInfo}: Book)=>{
+              const book: any = {
+                bookname:  volumeInfo.title ,
+                publisher: volumeInfo.publisher,
+                pubDate: volumeInfo.publishedDate,
+                description: volumeInfo.description,
+              };
 
-    //           if(volumeInfo.imageLinks){
-    //             book.pic = volumeInfo.imageLinks.thumbnail;
-    //           };
-    //           return book;
+              if(volumeInfo.imageLinks){
+                book.pic = volumeInfo.imageLinks.smallThumbnail;
+              };
+              return book;
               
-    //         });
-    //       }
+            });
+          }
           
-    //     }),
-    //     tap((books: any)=>{
-    //       this.Books = books;
-    //       this.BooksBehave$.next(this.Books);
-    //     })
+        }),
+        tap((books: any)=>{
+          this.Books = books;
+          this.BooksBehave$.next(this.Books);
+        })
         
-    //   )
-    // }
+      )
+      
+   
+   
+     }
 
-   }
+   
 }
 
  
 
+
+
+ 
